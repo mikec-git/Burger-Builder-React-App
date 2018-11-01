@@ -34,7 +34,7 @@ const burger = (props) => {
   return ( 
     <div className={bem.Burger}>
       <BurgerIngredient type="bread-top" />
-      {transformedIngredients}
+        {transformedIngredients}
       <BurgerIngredient type="bread-bottom" />
     </div>
    );
