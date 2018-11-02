@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import c from './Modal.module.scss';
 import Backdrop from '../Backdrop/Backdrop';
 
-const modal = (props) => ( 
-  <>
-    <Backdrop 
-      show={props.show}
-      clicked={props.modalClosed} />
-    <div 
-      className={c.Modal + ' ' + (props.show ? c.Modal_visible : c.Modal_hidden)}>
-      {props.children}
-    </div>
-  </>
-);
- 
-export default modal;
+class Modal extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.show !== this.props.show;
+  }
+
+  componentWillUpdate() {
+    console.log('[MODAL] WillUpdate()')
+  }
+
+  render(){
+    return ( 
+      <>
+        <Backdrop 
+          show={this.props.show}
+          clicked={this.props.modalClosed} />
+        <div 
+          className={c.Modal + ' ' + (this.props.show ? c.Modal_visible : c.Modal_hidden)}>
+          {this.props.children}
+        </div>
+      </>
+    );
+  }
+}
+
+export default Modal;
