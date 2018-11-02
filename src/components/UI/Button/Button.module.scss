@@ -1,0 +1,24 @@
+.Btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 1rem;
+  margin: 1rem;
+  font-weight: bold;
+
+  &:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  &__Success {
+    color: #5C9210;
+  }
+
+  &__Danger {
+    color: #944317;
+  }
+}
