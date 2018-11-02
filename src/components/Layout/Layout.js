@@ -1,9 +1,10 @@
 import React from 'react';
 import bem from './Layout.module.scss';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 const layout = (props) => (
   <>
-    <div>Toolbar, SideDrawer, Backdrop</div>
+    <Toolbar />
     <main className={bem.Layout}>
       {props.children}
     </main>
