@@ -21,5 +21,17 @@
   &_close {
     transform: translateX(-100%);
   }
+  
+  &__Logo {
+    height: 11%;
+    
+    &_mb {      
+      margin-bottom: 3.2rem;
+      
+      @media (min-width: 50em) {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 

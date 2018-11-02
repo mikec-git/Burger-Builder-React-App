@@ -1,0 +1,37 @@
+.Menu {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 2.3rem;
+  cursor: pointer;
+  
+  &__Burger {
+    width: 4rem;
+    height: .3rem;
+    background-color: white;
+    border-radius: 100px;
+    position: relative;
+    
+    @media (min-width: 50em) {
+      display: none;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 4rem;
+      height: .3rem;
+      background-color: white;
+    }
+  
+    &::before {
+      top: 1rem;
+    }
+  
+    &::after {
+      bottom: 1rem;
+    }
+  }
+}
