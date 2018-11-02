@@ -13,5 +13,9 @@
 
   &__Nav {
     height: 100%;
+    
+    @media (max-width: 49.9em) {
+      display: none;
+    }
   }
 }

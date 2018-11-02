@@ -1,21 +1,37 @@
 .NavigationItem {
-  display: flex;
-  height: 100%;
-  align-items: center;
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
   
+  @media (min-width: 50em) {
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+  }
+
   &__Link {
-    color: white;
+    color: #8f5c2c;
     text-decoration: none;
-    padding: 1.6rem 1rem;
-    border-bottom: .4rem solid transparent;
+    width: 100%;
     display: block;
+
+    @media (min-width: 50em) {
+      color: white;
+      padding: 1.6rem 1rem;
+      border-bottom: .4rem solid transparent;
+    }
 
     &:hover,
     &:active,
     &_active {
-      background-color: #8f5c2c;
-      border-bottom: .4rem solid #40a4c8;
-      color: white;
+      color: #40a4c8;
+
+      @media (min-width: 50em) {
+        background-color: #8f5c2c;
+        border-bottom: .4rem solid #40a4c8;
+        color: white;
+      }
     }
   }
 }

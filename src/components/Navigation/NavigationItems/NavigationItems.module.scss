@@ -2,5 +2,10 @@
   list-style: none;
   display: flex;
   align-items: center;
+  flex-direction: column;
   height: 100%;
+
+  @media (min-width: 50em) {
+    flex-direction: row;
+  }
 }

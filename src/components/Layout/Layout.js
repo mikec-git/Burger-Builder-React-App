@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import bem from './Layout.module.scss';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
-const layout = (props) => (
-  <>
-    <Toolbar />
-    <main className={bem.Layout}>
-      {props.children}
-    </main>
-  </>
-);
+class Layout extends Component {
+  state = {
+    showSideDrawer: true
+  }
+  
+  sideDrawerClosedHandler = () => {
+    this.setState({ showSideDrawer: false });
+  }
 
-export default layout;
+  render() {
+    return (
+      <>
+        <Toolbar />
+        <SideDrawer 
+          open={this.state.showSideDrawer} 
+          closed={this.sideDrawerClosedHandler} />
+        <main className={bem.Layout}>
+          {this.props.children}
+        </main>
+      </>
+    )
+  }
+} 
+
+export default Layout;
