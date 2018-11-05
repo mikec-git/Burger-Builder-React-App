@@ -1,6 +1,7 @@
 import React from 'react';
 import bem from './Burger.module.scss';
 import BurgerIngredient from './BurgerIngredients/BurgerIngredient';
+import { withRouter } from 'react-router-dom';
 
 const burger = (props) => {
   // let transformedIngredients = [];
@@ -40,4 +41,4 @@ const burger = (props) => {
    );
 }
 
-export default burger;
+export default withRouter(burger);
