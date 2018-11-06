@@ -11,7 +11,7 @@ class Checkout extends Component {
 
     if(this.props.location.state){
       ingredients = this.props.location.state.ingredients;
-      totalPrice = this.props.location.state.totalPric;
+      totalPrice = this.props.location.state.price;
     }
 
     this.state = { 
