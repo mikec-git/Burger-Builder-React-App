@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Button from '../../../components/UI/Button/Button';
 import c from './ContactData.module.scss';
 import axios from '../../../axios-orders';
@@ -100,7 +102,7 @@ class ContactData extends Component {
     }
 
     const order = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData
     };
@@ -122,21 +124,11 @@ class ContactData extends Component {
   checkValidity(value, rules) {
     let isValid = true;
 
-    if(!rules){
-      return true;
-    }
+    if(!rules) return true;
 
-    if(rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if(rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    
-    if(rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
+    if(rules.required) { isValid = value.trim() !== '' && isValid; }
+    if(rules.minLength) { isValid = value.length >= rules.minLength && isValid; }    
+    if(rules.maxLength) { isValid = value.length <= rules.maxLength && isValid; }
 
     return isValid;
   }
@@ -197,5 +189,12 @@ class ContactData extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice
+  }
+}
  
-export default ContactData;
+export default connect(mapStateToProps)(ContactData);
