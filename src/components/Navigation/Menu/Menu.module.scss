@@ -5,6 +5,10 @@
   height: 2.3rem;
   cursor: pointer;
   
+  @media (min-width: 50em) {
+    display: none;
+  }
+
   &__Burger {
     width: 4rem;
     height: .3rem;
@@ -12,10 +16,6 @@
     border-radius: 100px;
     position: relative;
     
-    @media (min-width: 50em) {
-      display: none;
-    }
-
     &::before,
     &::after {
       content: '';
