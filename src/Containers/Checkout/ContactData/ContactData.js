@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 import Button from '../../../components/UI/Button/Button';
 import c from './ContactData.module.scss';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 class ContactData extends Component {
   state = { 
@@ -90,12 +92,10 @@ class ContactData extends Component {
         valid: true
       },
     },
-    formIsValid: false,
-    loading: false
+    formIsValid: false
   }
 
-  orderHandler = (e) => {
-    this.setState({ loading: true });
+  orderHandler = e => {
     const formData = {};
     for (let formElementId in this.state.orderForm) {
       formData[formElementId] = this.state.orderForm[formElementId].value;
@@ -107,16 +107,7 @@ class ContactData extends Component {
       orderData: formData
     };
 
-    axios.post('/orders.json', order)
-      .then(response => {
-        this.setState({ loading: false });
-        this.props.history.push({pathname: '/'});
-
-      })
-      .catch(error => {
-        this.setState({ loading: false });
-        console.log(error);
-      });
+    this.props.onOrderBurger(order);
 
     e.preventDefault();
   }
@@ -127,7 +118,7 @@ class ContactData extends Component {
     if(!rules) return true;
 
     if(rules.required) { isValid = value.trim() !== '' && isValid; }
-    if(rules.minLength) { isValid = value.length >= rules.minLength && isValid; }    
+    if(rules.minLength) { isValid = value.length >= rules.minLength && isValid; }   
     if(rules.maxLength) { isValid = value.length <= rules.maxLength && isValid; }
 
     return isValid;
@@ -177,7 +168,7 @@ class ContactData extends Component {
       </form>
     );
 
-    if(this.state.loading) {
+    if(this.props.loading) {
       form = <Spinner />
     }
 
@@ -192,9 +183,16 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice
-  }
-}
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+  };
+};
  
-export default connect(mapStateToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

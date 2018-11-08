@@ -20,7 +20,7 @@ const burger = (props) => {
   // .reduce((arr, el) => {
   //   return arr.concat(el)
   // });
- 
+    
   let transformedIngredients = Object.keys(props.ingredients)
   .flatMap(igKey => {
     return [...Array(props.ingredients[igKey])].map((_, i) => {
