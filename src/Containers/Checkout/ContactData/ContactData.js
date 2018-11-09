@@ -8,6 +8,8 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import { updateObject, checkValidity } from '../../../shared/utility';
+
 
 class ContactData extends Component {
   state = { 
@@ -104,7 +106,8 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
-      orderData: formData
+      orderData: formData,
+      userId: this.props.userId
     };
 
     this.props.onOrderBurger(order, this.props.token);
@@ -112,28 +115,16 @@ class ContactData extends Component {
     e.preventDefault();
   }
 
-  checkValidity(value, rules) {
-    let isValid = true;
+  inputChangedHandler = (e, inputId) => {    
+    const updatedFormElement = updateObject(this.state.orderForm[inputId], {
+      value: e.target.value,
+      valid: checkValidity(e.target.value, this.state.orderForm[inputId].validation),
+      touched: true
+    });
 
-    if(!rules) return true;
-
-    if(rules.required) { isValid = value.trim() !== '' && isValid; }
-    if(rules.minLength) { isValid = value.length >= rules.minLength && isValid; }   
-    if(rules.maxLength) { isValid = value.length <= rules.maxLength && isValid; }
-
-    return isValid;
-  }
-
-  inputChangedHandler = (e, inputId) => {
-    const updatedOrderForm = {
-      ...this.state.orderForm,
-      [inputId]: {
-        ...this.state.orderForm[inputId],
-        value: e.target.value,
-        valid: this.checkValidity(e.target.value, this.state.orderForm[inputId].validation),
-        touched: true
-      }
-    }
+    const updatedOrderForm = updateObject(this.state.orderForm, {
+      [inputId]: updatedFormElement
+    });
 
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
@@ -186,7 +177,8 @@ const mapStateToProps = state => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   };
 };
 
