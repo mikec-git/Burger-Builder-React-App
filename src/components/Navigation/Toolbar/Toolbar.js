@@ -9,7 +9,8 @@ const toolbar = (props) => (
     <Menu show={props.open} />
     <Logo height="80%"/>
     <nav className={c.Toolbar__Nav}>
-      <NavigationItems />
+      <NavigationItems
+        isAuthenticated={props.isAuth} />
     </nav>
   </header>
 );
