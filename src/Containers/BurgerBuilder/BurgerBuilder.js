@@ -10,7 +10,7 @@ import axios from '../../axios-orders';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     purchasing: false,
     loading: false,
@@ -64,7 +64,8 @@ class BurgerBuilder extends Component {
             price={this.props.price}
             ordered={this.purchaseHandler}
             isAuth={this.props.isAuthenticated} />
-        </>);
+        </>
+      );
       orderSummary = <OrderSummary 
         ingredients={this.props.ings}
         purchaseCanceled={this.purchaseCancelHandler}
